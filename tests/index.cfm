@@ -1,23 +1,21 @@
 <cfscript>
 transaction {
-	
+
+	// create some actions	
 	actions = {
-		"list" = 0,
-		"read" = 0,
-		"write" = 0,
-		"delete" = 0
+		"create" = 1,
+		"read" = 1,
+		"update" = 1,
+		"delete" = 1,
+		"list" = 0
 	};
 
 	for(a in actions) {
-		actions[a] = entityNew("Action", {name=a});
+		actions[a] = entityNew("Action", {name=a, object=actions[a]});
 		entitySave(actions[a]);
 	}
 	
-	for(a in actions) {
-		ea = entityNew("EntityAction", {entity="Object", Action=actions[a]});
-		entitySave(ea);
-	}
-	
+	// some simple roles
 	roles = {
 		"user" = 0,
 		"admin" = 0
@@ -28,7 +26,13 @@ transaction {
 		entitySave(roles[r]);
 	}
 	
+	
 	// create perms
+	for(a in actions) {
+		p = entityNew("Permission", {type="Table", entity="Object", Action=actions[a]});
+		entitySave(p);
+	}
+	
 	
 	// link perms to roles
 
