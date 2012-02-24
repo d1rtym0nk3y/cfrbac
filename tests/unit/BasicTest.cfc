@@ -55,8 +55,14 @@ component extends="mxunit.framework.TestCase" {
 	}
 	
 	function testCanNotCallNonObjectActionOnEntity() {
-		assertFalse(users.user.can("list", obj));
-		assertTrue(users.user.can("list", "Object"));
+		assertFalse(users.user.can("list", obj), "You should not be able to list an entity instance");
+		assertTrue(users.user.can("list", "Object"), "You should be able to list an entity specified by classname");
+	}
+	
+	function testCompareFunction() {
+		var tmp = entityLoadByPK("User", users.user.getID());
+		assertFalse(tmp._compare(tmp, javacast("null", 0)), "user should not equal null");
+		assertFalse(tmp._compare(tmp, "summers day"), "user is not a summers day!");
 	}
 	
 

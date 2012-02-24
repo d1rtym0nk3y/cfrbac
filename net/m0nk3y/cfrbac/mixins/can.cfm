@@ -59,7 +59,14 @@ function cannot(action, target) {
 * @hint utility function to compare to entity instances
 */
 function _compare(a,b) {
-	return arrayfind([a], b);
+	if(isNull(a) && isNull(b)) return true;
+	if(isnull(a) || isnull(b)) return false;
+	try {
+		return arrayfind([a], b);
+	}
+	catch(any e) {
+		return false;
+	}
 }
 </cfscript>
 
