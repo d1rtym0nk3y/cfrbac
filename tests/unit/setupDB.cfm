@@ -2,7 +2,8 @@
 ormReload();
 transaction {
 
-	// create some actions
+	// these are our default actions, 
+	// and whether they apply to an instance of an object (1) or a whole class (0)
 	actions = {
 		"create" = 1,
 		"read" = 1,
@@ -52,7 +53,7 @@ transaction {
 		users[r].setUserName(r);
 		users[r].addRole(roles[r]);
 		entitysave(users[r]);
-	}
+	}	
 	
 	// create a user with both user & admin roles
 	users.both =  new tests.cfc.User();
