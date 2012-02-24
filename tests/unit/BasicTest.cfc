@@ -61,8 +61,10 @@ component extends="mxunit.framework.TestCase" {
 	
 	function testCompareFunction() {
 		var tmp = entityLoadByPK("User", users.user.getID());
+		var tmp2 = entityLoadByPK("User", users.user.getID());
 		assertFalse(tmp._compare(tmp, javacast("null", 0)), "user should not equal null");
 		assertFalse(tmp._compare(tmp, "summers day"), "user is not a summers day!");
+		assertTrue(tmp._compare(tmp2));
 	}
 	
 	function testMultiplePermissionsForSameEntityAndAction() {

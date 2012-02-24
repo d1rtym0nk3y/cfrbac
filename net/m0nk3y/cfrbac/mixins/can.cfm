@@ -15,7 +15,7 @@ function can(action, target) {
 		var md = getMetaData(target);
 		var targetClassName = structKeyExists(md, "entityname") ? md.entityname : listlast(md.fullname, ".");
 		// if target is an instance, is it ourself
-		var self = _compare(target, subject);
+		var self = _compare(target);
 	}
 	
 	var md = getMetaData(subject);
@@ -59,9 +59,9 @@ function cannot(action, target) {
 }
 
 /**
-* @hint utility function to compare to entity instances
+* @hint utility function to compare to entity instances, if only one argument is supplied it compares it to `this`
 */
-function _compare(a,b) {
+function _compare(a,b=this) {
 	if(isNull(a) && isNull(b)) return true;
 	if(isnull(a) || isnull(b)) return false;
 	try {

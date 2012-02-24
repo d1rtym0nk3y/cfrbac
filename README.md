@@ -49,7 +49,7 @@ The entity instance being acted upon
 - ###subject
 The entity instance performing the action
 
-###Example Condition
+###Example Conditions
 
 ```ColdFusion
 deleteOwnPostPermission = entityNew("CFRBAC_Permission", {
@@ -58,7 +58,7 @@ deleteOwnPostPermission = entityNew("CFRBAC_Permission", {
 	condition="_compare(subject, target.getCreatedBy())"
 });
 ```
-The _compare function is included by the mixin for easy comparison of entities
+The _compare function is included by the mixin for easy comparison of entities, and returns true if the entities are the same
 
 Its also posible to chain conditions.
 Here's an example for a Forum entity, if the user can read the forum and the forum is not locked, then they can post 
@@ -76,3 +76,16 @@ postPermission = entityNew("CFRBAC_Permission", {
 	condition="subject.can('read', target) && !target.isLocked()"
 });
 ```
+
+###Object or Class permission
+
+Some permissions apply to a class of entity, rather than to a particular instance. For example a "list" action typically applies to a class of entities (a table) rather than an instance of an entity (a row). 
+To create a permission that applies to a class rather than instance set object=false on the Permission
+
+```ColdFusion
+listPermission = entityNew("CFRBAC_Permission", {
+	entity="Post", 
+	action="list",
+	object=false 
+});
+```  
