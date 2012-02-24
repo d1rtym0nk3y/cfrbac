@@ -51,7 +51,11 @@ The entity instance performing the action
 ###Example Condition
 
 ```ColdFusion
-_compare(subject, target.getCreatedBy())
+deleteOwnPostPermission = entityNew("CFRBAC_Permission", {
+	entity="Post", 
+	action="delete", 
+	condition="_compare(subject, target.getCreatedBy())"
+});
 ```
 The _compare function is included by the mixin for easy comparison of entities
 
