@@ -16,7 +16,7 @@ property name="Roles" fieldtype="many-to-many"
 
 Then include a mixin that will provide the functions used to evaluate permissions
 
-```coldfusion
+```ColdFusion
 include "/net/m0nk3y/cfrbac/mixins/can.cfm"; 
 ```
 
