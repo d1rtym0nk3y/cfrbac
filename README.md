@@ -37,7 +37,8 @@ if(user.can("list", "Books")) {
 ```
 
 ###Conditions
-Permissions can have arbitrary conditions attached to them, conditions are a string that is evaluated when the can() function is run.  It has access to a few defined variables
+Permissions can have arbitrary conditions attached to them, conditions are a string that is evaluated when the can() function is run and should evaluate to true or false.  
+Conditions have access to a few pre-defined variables
 
 - ###self
 if target == subject self will be true, this allows you to write conditions where a subject may only perform actions on themselves, by simply providing a condition of "self"
