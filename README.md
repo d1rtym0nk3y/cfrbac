@@ -26,7 +26,7 @@ Include "/net/m0nk3y/cfrbac/entity" in your applications orm cfclocations
 this.ormsettings.cfclocation = ["/net/m0nk3y/cfrbac/entity", "/my/model/cfcs"]
 ```
 
-Define some permissions and assign them to roles. Then assign your roles to your users.  See [setubDB.cfm](tests/unit/setupDB.cfm) for some examples. 
+Define some permissions and assign them to roles. Then assign your roles to your users.  See [setubDB.cfm](//github.com/d1rtym0nk3y/cfrbac/blob/master/tests/unit/setupDB.cfm) for some examples. 
 
 Then you can start asking your entities if they have permission to perform an action
 
