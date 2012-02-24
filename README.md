@@ -88,4 +88,11 @@ listPermission = entityNew("CFRBAC_Permission", {
 	action="list",
 	object=false 
 });
-```  
+
+// now rather than pass an entity instance to can(), pass the classname
+if(user.can("list", "Post")) {
+	// do something
+}
+```
+
+  
