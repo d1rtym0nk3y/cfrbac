@@ -55,3 +55,14 @@ _compare(subject, target.getCreatedBy())
 ```
 The _compare function is included by the mixin for easy comparison of entities
 
+Its also posible to chain conditions.
+Here's an example that for a Forum entity, if the user can read the forum and the forum is not locked, then they can post 
+
+```ColdFusion
+postPermission = entityNew("CFRBAC_Permission", {
+	entity="Forum", 
+	action="post", 
+	condition="subject.can('read', target) && !target.isLocked()"
+});
+
+```
