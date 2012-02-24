@@ -4,7 +4,7 @@
 	
 	this.ormenabled = true;
 	this.datasource = "cfrbac";
-	this.enableRobustException = true;
+	this.enableRobustException = false;
 	this.ormsettings = {
 		cfclocation = ["/net", "/tests/cfc"],
 		automanageSession = false,
