@@ -6,7 +6,7 @@
 	this.datasource = "cfrbac";
 	this.enableRobustException = false;
 	this.ormsettings = {
-		cfclocation = ["/net", "/tests/cfc"],
+		cfclocation = ["/net/m0nk3y/cfrbac/entity", "/tests/cfc"],
 		automanageSession = false,
 		flushatrequestend = false,
 		dialect = "MySQL",

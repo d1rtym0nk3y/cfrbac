@@ -18,7 +18,7 @@ transaction {
 	};
 	
 	for(r in roles) {
-		roles[r] = entityNew("Role", {name=r});
+		roles[r] = entityNew("CFRBAC_Role", {name=r});
 		entitySave(roles[r]);
 	}
 	
@@ -26,7 +26,7 @@ transaction {
 	// add all permissions to the admin role
 	perms = {};
 	for(a in actions) {
-		perms[a] = entityNew("Permission", {entity="Object", Action=a, object=actions[a]});
+		perms[a] = entityNew("CFRBAC_Permission", {entity="Object", Action=a, object=actions[a]});
 		entitySave(perms[a]);
 		roles.admin.addPermission(perms[a]);
 	}
@@ -37,11 +37,11 @@ transaction {
 	roles.user.addPermission(perms.list);
 
 	// create an update-self permission and addit to the user role
-	updateSelf = entityNew("Permission", {entity="User", action="update", condition="self"});
+	updateSelf = entityNew("CFRBAC_Permission", {entity="User", action="update", condition="self"});
 	entitysave(updateSelf); 
 	roles.user.addPermission(updateSelf);
 	
-	deleteOwnObj = entityNew("Permission", {entity="Object", action="delete", condition="_compare(subject, target.getCreatedBy())"});
+	deleteOwnObj = entityNew("CFRBAC_Permission", {entity="Object", action="delete", condition="_compare(subject, target.getCreatedBy())"});
 	entitysave(deleteOwnObj); 
 	roles.user.addPermission(deleteOwnObj);
 	
