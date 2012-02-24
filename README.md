@@ -64,6 +64,12 @@ Its also posible to chain conditions.
 Here's an example for a Forum entity, if the user can read the forum and the forum is not locked, then they can post 
 
 ```ColdFusion
+readPermission = entityNew("CFRBAC_Permission", {
+	entity="Forum", 
+	action="read", 
+	condition="target.isPublic(1)"
+});
+
 postPermission = entityNew("CFRBAC_Permission", {
 	entity="Forum", 
 	action="post", 
