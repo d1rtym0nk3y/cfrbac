@@ -10,7 +10,7 @@ Give any entity that can perform actions, typically a User entity a property "Ro
 	
 ```ColdFusion
 property name="Roles" fieldtype="many-to-many" 
-	singularname="Role" cfc="net.m0nk3y.cfrbac.entity.Role" 
+	singularname="Role" cfc="net.m0nk3y.cfrbac.entity.CFRBAC_Role" 
 	linktable="tests_UserRoles"; 
 ```
 
