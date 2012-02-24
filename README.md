@@ -6,7 +6,7 @@ _Currently a work in progress_
 
 ###The Basics
 
-Give any entity that can perform actions, typically a User entity an property "Roles" 
+Give any entity that can perform actions, typically a User entity a property "Roles" (this will probably be configurable in the future) 
 	
 ```ColdFusion
 property name="Roles" fieldtype="many-to-many" 

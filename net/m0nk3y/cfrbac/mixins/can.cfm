@@ -21,7 +21,7 @@ function can(action, target) {
 	var md = getMetaData(subject);
 	var subjectClassName = structKeyExists(md, "entityname") ? md.entityname : listlast(md.fullname, ".");
 	
-	var q = ormExecuteQuery("
+	var perms = ormExecuteQuery("
 		select perms
 		from #subjectClassName# subject
 		join subject.Roles roles
@@ -38,14 +38,17 @@ function can(action, target) {
 		object = object
 	});
 	
-	if(arraylen(q) == 0) return false;
+	if(arraylen(perms) == 0) return false;
 	
-	var con = q[1].getCondition();
-	if(len(con)) {
-		var passed = evaluate(con);
-	}
-	else {
-		passed = true;
+	for(var p in perms) {
+		var con = p.getCondition();
+		if(len(con)) {
+			var passed = evaluate(con);
+			if(passed) return true;
+		}
+		else {
+			passed = true;
+		}
 	}
 	
 	return passed;

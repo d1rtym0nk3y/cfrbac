@@ -65,6 +65,19 @@ component extends="mxunit.framework.TestCase" {
 		assertFalse(tmp._compare(tmp, "summers day"), "user is not a summers day!");
 	}
 	
+	function testMultiplePermissionsForSameEntityAndAction() {
+		transaction {
+			var p1 = entityNew("CFRBAC_Permission", {entity="Object", action="spin", condition="false"});
+			entitysave(p1);
+			var p2 = entityNew("CFRBAC_Permission", {entity="Object", action="spin", condition=""});
+			entitysave(p2);
+			roles.user.addPermission(p1);
+			roles.user.addPermission(p2);
+		}
+		assertTrue(users.user.can("spin", obj), "user should be able to spin an object");
+		
+	}
+	
 
 	
 
