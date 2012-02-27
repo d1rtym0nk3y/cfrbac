@@ -35,6 +35,7 @@ if(user.can("list", "Books")) {
   // do something
 }
 ```
+The _compare function is included by the mixin for easy comparison of entities, and returns true if the entities are the same
 
 ###Conditions
 Permissions can have arbitrary conditions attached to them, conditions are a string that is evaluated when the can() function is run and should evaluate to true or false.  
@@ -58,7 +59,6 @@ deleteOwnPostPermission = entityNew("CFRBAC_Permission", {
 	condition="_compare(subject, target.getCreatedBy())"
 });
 ```
-The _compare function is included by the mixin for easy comparison of entities, and returns true if the entities are the same
 
 Its also posible to chain conditions.
 Here's an example for a Forum entity, if the user can read the forum and the forum is not locked, then they can post 
@@ -95,4 +95,19 @@ if(user.can("list", "Post")) {
 }
 ```
 
+ ###Wildcard Permissions
+ 
+As a convenience you can use a wildcard (*) for either the Entity, Action or both.  
   
+ ```ColdFusion
+doItAllPermission = entityNew("CFRBAC_Permission", {
+	entity="*", 
+	action="*",
+	object=true 
+}); 
+listAnythingPermission = entityNew("CFRBAC_Permission", {
+	entity="*", 
+	action="list",
+	object=false 
+}); 
+ ```
