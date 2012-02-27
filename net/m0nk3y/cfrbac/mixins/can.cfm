@@ -27,8 +27,16 @@ function can(action, target) {
 		join subject.Roles roles
 		join roles.Permissions perms
 		where subject = :subject
-		and perms.Entity = :targetClassName
-		and perms.Action = :action
+		and (
+			perms.Entity = :targetClassName
+			or
+			perms.Entity = '*'
+		)
+		and (
+			perms.Action = :action
+			or
+			perms.Action = '*'
+		)
 		and perms.Object = :object
 	", 
 	{

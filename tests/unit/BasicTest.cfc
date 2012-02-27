@@ -76,11 +76,50 @@ component extends="mxunit.framework.TestCase" {
 			roles.user.addPermission(p1);
 			roles.user.addPermission(p2);
 		}
-		assertTrue(users.user.can("spin", obj), "user should be able to spin an object");
-		
+		assertTrue(users.user.can("spin", obj), "user should be able to spin an object");	
 	}
 	
+	function testWildcardEntityPermissions() {
+		transaction {
+			var rootUser = entityNew("User", {username='root'});
+			var rootRole = entityNew("CFRBAC_Role", {name="root"});
+			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="*", action="read", object=1});
+			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="*", action="list", object=0});
+			entitySave(rootUser);
+			entitySave(rootRole);
+			entitySave(wildcardObjectPerm);
+			entitySave(wildcardClassPerm);
+			rootRole.addPermission(wildcardObjectPerm);
+			rootRole.addPermission(wildcardClassPerm);
+			rootUser.addRole(rootRole);
+		}
+		var object = entityNew("Object");
+				
+		assertTrue(rootUser.can("read", object), "root user should be able to read any entity");
+		assertTrue(rootUser.can("read", rootuser), "root user should be able to read any entity");
+		assertTrue(rootUser.can("list", "User"), "root user should be able to list any entity");
+		assertTrue(rootUser.can("list", "Object"), "root user should be able to list any entity");
+	}
 
+	function testWildcardActionPermissions() {
+		transaction {
+			var rootUser = entityNew("User", {username='root'});
+			var rootRole = entityNew("CFRBAC_Role", {name="root"});
+			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="User", action="*", object=1});
+			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="Object", action="*", object=0});
+			entitySave(rootUser);
+			entitySave(rootRole);
+			entitySave(wildcardObjectPerm);
+			entitySave(wildcardClassPerm);
+			rootRole.addPermission(wildcardObjectPerm);
+			rootRole.addPermission(wildcardClassPerm);
+			rootUser.addRole(rootRole);
+		}
+		assertTrue(rootUser.can("read", rootuser), "user should be able to read Users");
+		assertTrue(rootUser.can("list", "Object"), "user should be able to list Objects ");		
+		assertTrue(rootUser.can("destroy", "Object"), "user should be able to destroy Objects ");
+		
+	}
 	
 
 }
