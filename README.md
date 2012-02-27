@@ -95,7 +95,7 @@ if(user.can("list", "Post")) {
 }
 ```
 
- ###Wildcard Permissions
+###Wildcard Permissions
  
 As a convenience you can use a wildcard (*) for either the Entity, Action or both.  
   
