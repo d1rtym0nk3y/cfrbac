@@ -18,6 +18,8 @@ if(form.save) {
 	transaction {
 		perm.setEntity(form.entity);
 		perm.setAction(form.action);
+		perm.setObject(form.object);
+		perm.setCondition(form.condition);
 		entitySave(perm);
 	}
 	location("perms.cfm?id=#perm.getid()#", false);
@@ -63,6 +65,23 @@ perms = ormExecuteQuery("
 					</div>
 				</div>
 
+				<div class="control-group">
+					<label class="control-label" for="object">Object or Class</label>
+					<div class="controls">
+						<select name="object" class="chzn-select input-xlarge" id="object">
+							<option<cfif perm.getObject()> selected</cfif> value="true">Object Instance</option>
+							<option<cfif !perm.getObject()> selected</cfif> value="false">Class</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="condition">Condition</label>
+					<div class="controls">
+						<textarea name="condition" class="input-xlarge" id="condition" rows="4">#perm.getCondition()#</textarea>
+					</div>
+				</div>
+
 				<div class="form-actions">
 		            <button name="save" type="submit" class="btn btn-primary" value="true">Save changes</button>
             		<button class="btn">Cancel</button>
@@ -79,4 +98,8 @@ perms = ormExecuteQuery("
 	
 </cfoutput>
 </tag:layout>
+
+<script type="text/javascript">
+$(".chzn-select").chosen();
+</script>
 
