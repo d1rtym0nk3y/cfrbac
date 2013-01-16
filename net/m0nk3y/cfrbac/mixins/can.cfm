@@ -3,12 +3,12 @@ function can(action, target) {
 	var subject = this;
 	var passed = false;
 	var self = false;
-	var object = true;
+	var type = 0; // instance
 
 	// target might be the name of the entity, for example if this is a List action
 	if(isSimpleValue(target)) {
 		var targetClassName = target;
-		var object = false;
+		var type = 1; //class
 	}
 	// its an instance of an entity
 	else {	
@@ -37,13 +37,13 @@ function can(action, target) {
 			or
 			perms.Action = '*'
 		)
-		and perms.Object = :object
+		and perms.Type = :type
 	", 
 	{
 		subject=subject,
 		action=action,
 		targetClassName=targetClassName,
-		object = object
+		type = type
 	});
 	
 	if(arraylen(perms) == 0) return false;

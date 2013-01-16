@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cfrbac>
+	<permissions>
+		<perm name="all_instance_perms" type="instance" action="*" entity="*" />
+		<perm name="all_class_perms" type="class" action="*" entity="*" />
+	
+		<perm name="list_user" type="class" action="list" entity="User" condition="" />
+		<perm name="create_user" type="class" action="create" entity="User" condition="" />
+		<perm name="read_user" type="instance" action="read" entity="User" condition="" />
+		<perm name="update_user" type="instance" action="update" entity="User" condition="" />
+		<perm name="delete_user" type="instance" action="delete" entity="User" condition="" />
+	</permissions>
+	
+	<roles>
+		<role name="admin">
+			<permissions>
+				<perm name="all_instance_perms" />
+				<perm name="all_class_perms" />
+				<perm name="list_user" />
+				<perm name="create_user" />
+				<perm name="read_user" />
+				<perm name="update_user" />
+				<perm name="delete_user" />
+			</permissions>
+		</role>
+		<role name="user">
+			<permissions>
+				<perm name="list_user" />
+				<perm name="read_user" />
+			</permissions>
+		</role>
+	</roles>
+
+</cfrbac>

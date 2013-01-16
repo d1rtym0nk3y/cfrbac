@@ -10,7 +10,7 @@ component extends="mxunit.framework.TestCase" {
 		}
 	}
 
-	function testUserCanNotDeleteOrUpdateObjectTheDontOwn() {
+	function testUserCanNotDeleteOrUpdateObjectTheyDontOwn() {
 		transaction {
 			var newobj = new tests.cfc.Object();
 			newobj.setCreatedBy(users.admin);
@@ -83,8 +83,8 @@ component extends="mxunit.framework.TestCase" {
 		transaction {
 			var rootUser = entityNew("User", {username='root'});
 			var rootRole = entityNew("CFRBAC_Role", {name="root"});
-			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="*", action="read", object=1});
-			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="*", action="list", object=0});
+			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="*", action="read", type='INSTANCE'});
+			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="*", action="list", type='CLASS'});
 			entitySave(rootUser);
 			entitySave(rootRole);
 			entitySave(wildcardObjectPerm);
@@ -105,8 +105,8 @@ component extends="mxunit.framework.TestCase" {
 		transaction {
 			var rootUser = entityNew("User", {username='root'});
 			var rootRole = entityNew("CFRBAC_Role", {name="root"});
-			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="User", action="*", object=1});
-			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="Object", action="*", object=0});
+			var wildcardObjectPerm = entityNew("CFRBAC_Permission", {entity="User", action="*", type='INSTANCE'});
+			var wildcardClassPerm = entityNew("CFRBAC_Permission", {entity="Object", action="*",  type='CLASS'});
 			entitySave(rootUser);
 			entitySave(rootRole);
 			entitySave(wildcardObjectPerm);

@@ -5,11 +5,11 @@ transaction {
 	// these are our default actions, 
 	// and whether they apply to an instance of an object (1) or a whole class (0)
 	actions = {
-		"create" = 1,
-		"read" = 1,
-		"update" = 1,
-		"delete" = 1,
-		"list" = 0
+		"create" = 'INSTANCE',
+		"read" = 'INSTANCE',
+		"update" = 'INSTANCE',
+		"delete" = 'INSTANCE',
+		"list" = 'CLASS'
 	};
 
 	// some simple roles
@@ -27,7 +27,7 @@ transaction {
 	// add all permissions to the admin role
 	perms = {};
 	for(a in actions) {
-		perms[a] = entityNew("CFRBAC_Permission", {entity="Object", Action=a, object=actions[a]});
+		perms[a] = entityNew("CFRBAC_Permission", {entity="Object", Action=a, type=actions[a]});
 		entitySave(perms[a]);
 		roles.admin.addPermission(perms[a]);
 	}

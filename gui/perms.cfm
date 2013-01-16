@@ -18,7 +18,7 @@ if(form.save) {
 	transaction {
 		perm.setEntity(form.entity);
 		perm.setAction(form.action);
-		perm.setObject(form.object);
+		perm.setType(form.type);
 		perm.setCondition(form.condition);
 		entitySave(perm);
 	}
@@ -30,13 +30,22 @@ perms = ormExecuteQuery("
 	order by p.Entity, p.Action
 ");
 
+entities = listToArray(structKeyList(ormGetSessionFactory().getAllClassMetadata()));
+arraySort(entities, "textnocase");
 </cfscript>
 
 <tag:layout>
+	
+	<style>
+		.nav-pills li {
+			overflow: hidden;
+		}
+		
+	</style>
 <cfoutput>	
 <h2>Permissions</h2>	
 <div class="row">
-	<div class="span2">
+	<div class="span3">
 		<ul class="nav nav-pills nav-stacked">
 			<li<cfif url.id is 0> class="active"</cfif>><a href="perms.cfm">New Permission</a></li>
 			<li class="nav-header">Existing Permissions</li>
@@ -54,23 +63,29 @@ perms = ormExecuteQuery("
 				<div class="control-group">
 					<label class="control-label" for="entity">Entity</label>
 					<div class="controls">
-						<input name="entity" type="text" class="input-xlarge" id="entity" value="#perm.getEntity()#">
+						<select name="entity" id="entity" class="chzn-select input-xlarge">
+							<cfloop array="#entities#" index="e">
+								<option value="#e#">#e#</option>
+							</cfloop>
+							<option value="">Other</option>
+						</select>
+						<input name="entity" type="text" class="input-xlarge" style="display:none;" id="entity_other" value="#perm.getEntity()#">
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="action">Action</label>
 					<div class="controls">
-						<input name="action" type="text" class="input-xlarge" id="action" value="#perm.getAction()#">
+						<input name="action" type="text" class="input-xlarge" id="_action" value="#perm.getAction()#">
 					</div>
 				</div>
 
 				<div class="control-group">
 					<label class="control-label" for="object">Object or Class</label>
 					<div class="controls">
-						<select name="object" class="chzn-select input-xlarge" id="object">
-							<option<cfif perm.getObject()> selected</cfif> value="true">Object Instance</option>
-							<option<cfif !perm.getObject()> selected</cfif> value="false">Class</option>
+						<select name="type" class="chzn-select input-xlarge" id="type">
+							<option<cfif perm.getType().equals('INSTANCE')> selected</cfif> value="INSTANCE">Object Instance</option>
+							<option<cfif !perm.getType().equals('CLASS')> selected</cfif> value="CLASS">Class</option>
 						</select>
 					</div>
 				</div>
@@ -101,5 +116,15 @@ perms = ormExecuteQuery("
 
 <script type="text/javascript">
 $(".chzn-select").chosen();
+$("#entity").bind("change", function() {
+	var sel = $(this);
+	if(sel.val()=="") {
+		$("#entity_other").show();
+	}
+	else {
+		$("#entity_other").hide();
+	}
+})
+
 </script>
 

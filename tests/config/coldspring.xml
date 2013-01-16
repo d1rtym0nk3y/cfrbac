@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.coldspringframework.org/schema/beans" 
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+           xmlns:aop="http://www.coldspringframework.org/schema/aop"
+           xmlns:util="http://www.coldspringframework.org/schema/util"
+           xsi:schemaLocation="http://www.coldspringframework.org/schema/beans http://coldspringframework.org/schema/coldspring-beans-2.0.xsd 
+           http://www.coldspringframework.org/schema/aop http://www.coldspringframework.org/schema/coldspring-aop-2.0.xsd
+           http://www.coldspringframework.org/schema/util http://coldspringframework.org/schema/coldspring-util-2.0.xsd"
+           default-lazy-init="false" default-autowire="byName">
+
+ 	<bean id="CFRBAC_PermissionAdvice" class="net.m0nk3y.cfrbac.aop.PermissionCheckingAdvice">
+ 		 <constructor-arg name="SessionManagerBeanName" value="UserManager" />
+ 		 <constructor-arg name="GetUserMethodName" value="getCurrentUser" />
+ 	</bean>
+	<aop:config>
+		<aop:aspect ref="CFRBAC_PermissionAdvice">
+  			<aop:around method="checkBefore" pointcut="within(model.manager..*) AND @annotation(can:before)" /> 
+ 			<aop:around method="filterResults" pointcut="within(model.manager..*) AND @annotation(can:filter)"  />
+		</aop:aspect>
+	</aop:config>
+
+</beans>

@@ -43,7 +43,7 @@ perms = ormExecuteQuery("
 <cfoutput>	
 <h2>Roles</h2>	
 <div class="row">
-	<div class="span2">
+	<div class="span3">
 		<ul class="nav nav-pills nav-stacked">
 			<li<cfif url.id is 0> class="active"</cfif>><a href="roles.cfm?id=0">New Role</a></li>
 			<li class="nav-header">Existing Roles</li>

@@ -77,16 +77,16 @@ postPermission = entityNew("CFRBAC_Permission", {
 });
 ```
 
-###Object or Class permission
+###Instance or Class permission
 
 Some permissions apply to a class of entity, rather than to a particular instance. For example a "list" action typically applies to a class of entities (a table) rather than an instance of an entity (a row). 
-To create a permission that applies to a class rather than instance set object=false on the Permission
+To create a permission that applies to a class rather than instance set type='class' on the Permission
 
 ```ColdFusion
 listPermission = entityNew("CFRBAC_Permission", {
 	entity="Post", 
 	action="list",
-	object=false 
+	type="class" 
 });
 
 // now rather than pass an entity instance to can(), pass the classname
@@ -103,11 +103,11 @@ As a convenience you can use a wildcard (*) for either the Entity, Action or bot
 doItAllPermission = entityNew("CFRBAC_Permission", {
 	entity="*", 
 	action="*",
-	object=true 
+	type="instance" 
 }); 
 listAnythingPermission = entityNew("CFRBAC_Permission", {
 	entity="*", 
 	action="list",
-	object=false 
+	type="class"
 }); 
  ```
