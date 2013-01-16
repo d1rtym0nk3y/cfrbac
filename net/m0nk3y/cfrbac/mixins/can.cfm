@@ -1,5 +1,5 @@
 <cfscript>
-function can(action, target) {
+public boolean function can(required string action, required any target) {
 	var subject = this;
 	var passed = false;
 	var self = false;
@@ -49,27 +49,25 @@ function can(action, target) {
 	if(arraylen(perms) == 0) return false;
 	
 	for(var p in perms) {
-		var con = p.getCondition();
-		if(len(con)) {
-			var passed = evaluate(con);
-			if(passed) return true;
+		try {
+			passed = evaluate(p.getCondition());
 		}
-		else {
-			passed = true;
+		catch(any e) {
+			passed = "foo";
 		}
 	}
 	
-	return passed;
+	return yesnoformat(passed);
 }	
 
-function cannot(action, target) {
+public boolean function cannot(required string action, required any target) {
 	return !can(action, taget);
 }
 
 /**
 * @hint utility function to compare to entity instances, if only one argument is supplied it compares it to `this`
 */
-function _compare(a,b=this) {
+public boolean function _compare(a,b=this) {
 	if(isNull(a) && isNull(b)) return true;
 	if(isnull(a) || isnull(b)) return false;
 	try {
