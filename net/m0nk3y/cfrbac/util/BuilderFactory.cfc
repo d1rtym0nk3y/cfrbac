@@ -6,12 +6,12 @@ component {
 		return this;
 	}
 	
-	function perm() {
-		return new PermissionBuilder(); 
+	function perm(perm) {
+		return new PermissionBuilder(argumentCollection=arguments); 
 	}
 	
-	function role() {
-		return new RoleBuilder();
+	function role(role) {
+		return new RoleBuilder(argumentCollection=arguments);
 	}
 
 }

@@ -9,7 +9,8 @@
 
 	this.TYPE = {
 		INSTANCE = 0,
-		CLASS = 1
+		CLASS = 1,
+		OTHER = 1
 	};
 
 	public function setType(required string type) {

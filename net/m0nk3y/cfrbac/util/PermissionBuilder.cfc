@@ -2,8 +2,13 @@
 
 component {
 
-	function init() {
-		variables.perm = new CFRBAC_Permission();
+	function init(perm) {
+		if(isNull(perm)) {
+			variables.perm = new CFRBAC_Permission();
+		}
+		else {
+			variables.perm = arguments.perm;
+		}
 		return this;
 	}
 	

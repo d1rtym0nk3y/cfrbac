@@ -2,8 +2,13 @@ import net.m0nk3y.cfrbac.entity.*;
 
 component {
 
-	function init() {
-		variables.role = new CFRBAC_Role();
+	function init(role) {
+		if(isNull(role)) {
+			variables.role = new CFRBAC_Role();	
+		}
+		else {
+			variables.role = arguments.role;
+		}
 		return this;
 	}
 	
